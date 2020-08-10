@@ -8,9 +8,15 @@ YouTube チャンネル CodeEvolution「React Formik」を参考
 $ npm i formik
 ```
 
-## Simple Form
+## useFormik を使って form 実装する
 
-simple form の HTML
+useFormik で実装すること
+
+- form の各 value の値を管理
+- handling submit
+- validate
+
+form の HTML
 
 ```
 <div>
@@ -29,9 +35,7 @@ simple form の HTML
 </div>
 ```
 
-### useFormik で form の state を管理
-
-この form を useFormik で state 管理する
+### form の各 value の値を管理
 
 - useFormik 関数を変数(formik)で管理
 - formik.values で各要素の value を管理
@@ -150,6 +154,118 @@ function YoutubeForm() {
     onSubmit: (values) => {
       console.log('form data', values);
     },
+  });
+
+  return (
+    <div>
+      <form onSubmit={formik.handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          onChange={formik.handleChange}
+          value={formik.values.name}
+        />
+
+        <label htmlFor="email">E-mail</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          onChange={formik.handleChange}
+          value={formik.values.email}
+        />
+
+        <label htmlFor="channel">Channel</label>
+        <input
+          type="text"
+          id="channel"
+          name="channel"
+          onChange={formik.handleChange}
+          value={formik.values.channel}
+        />
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+}
+
+export default YoutubeForm;
+```
+
+### validate 実装
+
+- useFormik 関数に validate メソッドを指定
+- validate メソッドには`errors`を戻り値とする
+- validate メソッドの引数`values`には各要素の name の値を key とした data が入る
+
+```
+const formik = useFormik({
+  validate: (values) => {
+    let errors = {};
+
+    if (!values.name) {
+      errors.name = 'Name is Required';
+    }
+
+    if (!values.email) {
+      errors.email = 'Email is Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      errors.email = 'Invalid email format';
+    }
+
+    if (!values.channel) {
+      errors.channel = 'Channel is Required';
+    }
+
+    return errors;
+  }
+});
+```
+
+完成形
+
+```
+import React from 'react';
+import { useFormik } from 'formik';
+
+const initialValues = {
+  name: '',
+  email: '',
+  channel: '',
+};
+
+const onSubmit = (values) => {
+  console.log('form data', values);
+};
+
+const validate = (values) => {
+  let errors = {};
+
+  if (!values.name) {
+    errors.name = 'Name is Required';
+  }
+
+  if (!values.email) {
+    errors.email = 'Email is Required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email format';
+  }
+
+  if (!values.channel) {
+    errors.channel = 'Channel is Required';
+  }
+
+  return errors;
+};
+
+function YoutubeForm() {
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validate,
   });
 
   return (
