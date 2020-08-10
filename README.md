@@ -54,7 +54,9 @@ const formik = useFormik({
     channel: '',
   },
 });
+```
 
+```
 <input
   type="text"
   id="name"
@@ -132,9 +134,13 @@ const formik = useFormik({
     console.log('form data', values);
   },
 });
+```
 
+```
 <form onSubmit={formik.handleSubmit}>
+```
 
+```
 <button type="submit">Submit</button>
 ```
 
@@ -200,6 +206,7 @@ export default YoutubeForm;
 - useFormik 関数に validate メソッドを指定
 - validate メソッドには`errors`を戻り値とする
 - validate メソッドの引数`values`には各要素の name の値を key とした data が入る
+- `formik.errors`で各要素のエラーメッセージを取得
 
 ```
 const formik = useFormik({
@@ -223,6 +230,12 @@ const formik = useFormik({
     return errors;
   }
 });
+```
+
+```
+{formik.errors.name ? (
+  <div className="error">{formik.errors.name}</div>
+) : null}
 ```
 
 完成形
@@ -271,32 +284,47 @@ function YoutubeForm() {
   return (
     <div>
       <form onSubmit={formik.handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          onChange={formik.handleChange}
-          value={formik.values.name}
-        />
+        <div className="form-control">
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            onChange={formik.handleChange}
+            value={formik.values.name}
+          />
+          {formik.errors.name ? (
+            <div className="error">{formik.errors.name}</div>
+          ) : null}
+        </div>
 
-        <label htmlFor="email">E-mail</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          onChange={formik.handleChange}
-          value={formik.values.email}
-        />
+        <div className="form-control">
+          <label htmlFor="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+          />
+          {formik.errors.email ? (
+            <div className="error">{formik.errors.email}</div>
+          ) : null}
+        </div>
 
-        <label htmlFor="channel">Channel</label>
-        <input
-          type="text"
-          id="channel"
-          name="channel"
-          onChange={formik.handleChange}
-          value={formik.values.channel}
-        />
+        <div className="form-control">
+          <label htmlFor="channel">Channel</label>
+          <input
+            type="text"
+            id="channel"
+            name="channel"
+            onChange={formik.handleChange}
+            value={formik.values.channel}
+          />
+          {formik.errors.channel ? (
+            <div className="error">{formik.errors.channel}</div>
+          ) : null}
+        </div>
 
         <button type="submit">Submit</button>
       </form>
@@ -305,4 +333,5 @@ function YoutubeForm() {
 }
 
 export default YoutubeForm;
+
 ```

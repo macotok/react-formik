@@ -19,7 +19,14 @@ input[type='email'] {
   display: block;
   font-size: 14px;
   line-height: 1.42857143;
-  margin-bottom: 20px;
   padding: 6px 12px;
   width: 400px;
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
 }
