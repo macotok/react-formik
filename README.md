@@ -841,3 +841,21 @@ ErrorMessage name="email">
   {(error) => <div className="error">{error}</div>}
 </ErrorMessage>
 ```
+
+### data に nest された object を 指定
+
+- `initialValues`で nest された object を指定
+- `Field`コンポーネントの name 属性で object の key を指定
+
+```
+const initialValues = {
+  social: {
+    facebook: '',
+    twitter: '',
+  },
+};
+```
+
+```
+<Field type="text" id="twitter" name="social.twitter" />
+```
