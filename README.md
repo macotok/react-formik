@@ -668,3 +668,66 @@ function YoutubeForm() {
 
 export default YoutubeForm;
 ```
+
+### Formik コンポーネントで全体をラップ
+
+- `formik`で提供している Formik コンポーネントで form タグを wrap
+- `Formik`コンポーネントの props`initialValues`、`validationSchema`、`onSubmit`にそれぞれの変数を指定
+
+```
+import { Formik } from 'formik';
+```
+
+```
+<Formik
+  initialValues={initialValues}
+  validationSchema={validationSchema}
+  onSubmit={onSubmit}
+>
+```
+
+### form タグを Form コンポーネントに変更
+
+- `formik`で提供している Form コンポーネントを form タグと変更
+- form タグで指定した onSubmit 属性を削除
+
+```
+import { Form } from 'formik';
+```
+
+```
+<form onSubmit={formik.handleSubmit}>
+↓
+<Form>
+```
+
+### input タグを Field コンポーネントに変更
+
+- `formik`で提供している Field コンポーネントを input タグと変更
+- `{...formik.getFieldProps()}`を削除
+
+```
+import { Field } from 'formik';
+```
+
+```
+<input type="text" id="name" name="name" {...formik.getFieldProps('name')} />
+↓
+<Field type="text" id="name" name="name" />
+```
+
+### ErrorMessage コンポーネントでエラーメッセージ表示
+
+- `formik`で提供している ErrorMessage コンポーネントでエラーメッセージ表示
+
+```
+import { ErrorMessage } from 'formik';
+```
+
+```
+{formik.touched.name && formik.errors.name ? (
+  <div className="error">{formik.errors.name}</div>
+) : null}
+↓
+<ErrorMessage name="name" />
+```
