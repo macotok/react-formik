@@ -820,3 +820,24 @@ export default YoutubeForm;
   }}
 </Field>
 ```
+
+### ErrorMessage コンポーネントについて
+
+- ErrorMessage コンポーネントの`component`props に作成した component を指定できる
+- そのとき  作成した component の`props.children`で error message が表示される
+- ErrorMessage コンポーネントの children に関数を設定できる
+- その関数の引数には error message が設定される
+
+```
+function TextError(props) {
+  return <div className="error">{props.children}</div>;
+}
+
+<ErrorMessage name="name" component={TextError} />
+```
+
+```
+ErrorMessage name="email">
+  {(error) => <div className="error">{error}</div>}
+</ErrorMessage>
+```
