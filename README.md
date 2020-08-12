@@ -859,3 +859,20 @@ const initialValues = {
 ```
 <Field type="text" id="twitter" name="social.twitter" />
 ```
+
+### data に配列を指定
+
+- `initialValues`で value に配列を指定
+- `Field`コンポーネントの name 属性で 配列の key と配列番号 を指定
+
+```
+const initialValues = {
+  phoneNumbers: ['', ''],
+};
+```
+
+```
+<Field type="text" id="primaryPh" name="phoneNumbers[0]" />
+
+<Field type="text" id="secondaryPh" name="phoneNumbers[1]" />
+```
