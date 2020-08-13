@@ -989,3 +989,58 @@ const validateComments = (value) => {
 <Field validate={validateComments} />
 <ErrorMessage name="comments" />
 ```
+
+### trigger validation
+
+- `Formik`コンポーネントの children に関数を設定できて、その関数の引数にはヘルパーメソッドが定義されている
+- `formik.validateField({name属性の値})`、`formik.setFieldTouched({name属性の値})`で単一の fileld の値取得と操作ができる
+- `formik.validateForm()`、`formik.setTouched({ name: true })`で validation を設定した全ての値取得と操作ができる
+
+```
+<Formik
+  initialValues={initialValues}
+  validationSchema={validationSchema}
+  onSubmit={onSubmit}
+>
+  {(formik) => {
+    return (
+      <Form>
+      .
+      .
+      .
+      </Form>
+    )
+  }}
+</Formik>
+```
+
+```
+<button
+  type="button"
+  onClick={() => formik.validateField('comments')}
+>
+  Validate comments
+</button>
+<button
+  type="button"
+  onClick={() => formik.setFieldTouched('comments')}
+>
+  Visit comments
+</button>
+<button type="button" onClick={() => formik.validateForm()}>
+  Validate all
+</button>
+<button
+  type="button"
+  onClick={() =>
+    formik.setTouched({
+      name: true,
+      email: true,
+      channel: true,
+      comments: true,
+    })
+  }
+>
+  Visit all
+</button>
+```
