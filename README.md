@@ -876,3 +876,55 @@ const initialValues = {
 
 <Field type="text" id="secondaryPh" name="phoneNumbers[1]" />
 ```
+
+### Field Array コンポーネントで動的に input タグを増減させる
+
+- `formik`で提供している`FieldArray`コンポーネントを使用
+- `initialValues`に配列を value とした key を設定
+- `FieldArray`コンポーネントの name 属性に`initialValues`で設定した key を指定
+- `FieldArray`コンポーネントの children に関数を設定
+- 関数の引数には`push`、`remove`、`form`などの object が管理されている
+- `form`object には value の key があり、`initialValues`で設定した key が管理されている
+- その key を map させて、`Field`コンポーネントと button を配置させる
+- `Field`コンポーネントの`name属性`は`initialValues`で設定した key と map の引数(index)を結合させる
+- map の引数(index)を使用して`removee(index)`で input タグの削除  行う
+- 先頭の input タグは削除しないように設定する
+- button タグの`onClick属性`で`push('')`を設定で input タグを増やす
+
+```
+import { FieldArray } from 'formik';
+```
+
+```
+const initialValues = {
+  phNumbers: [''],
+};
+```
+
+```
+<FieldArray name="phNumbers">
+  {(fieldArrayProps) => {
+    const { push, remove, form } = fieldArrayProps;
+    const {
+      values: { phNumbers },
+    } = form;
+    return (
+      <div>
+        {phNumbers.map((phNumber, index) => (
+          <div key={index}>
+            <Field name={`phNumbers[${index}]`} />
+            {index > 0 && (
+              <button type="button" onClick={() => remove(index)}>
+                -
+              </button>
+            )}
+          </div>
+        ))}
+        <button type="button" onClick={() => push('')}>
+          +
+        </button>
+      </div>
+    );
+  }}
+</FieldArray>
+```
