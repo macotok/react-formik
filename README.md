@@ -952,3 +952,15 @@ import { FastField } from 'formik';
   }}
 </FastField>
 ```
+
+### validation が走るタイミングを制御
+
+- デフォルトでは form の各項目を`onChange`、`onBlur`したタイミングで validation が走る
+- `Formik`コンポーネントの props で`validateOnChange`、`validateOnBlur`を`false`にすると validation が走らないようにする
+
+```
+<Formik
+  validateOnChange={false}
+  validateOnBlur={false}
+>
+```
