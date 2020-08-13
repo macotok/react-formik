@@ -964,3 +964,28 @@ import { FastField } from 'formik';
   validateOnBlur={false}
 >
 ```
+
+### Field コンポーネントで validation を定義
+
+- `validationSchema`で validation を制御するのではなく、`Field`コンポーネントの`validate` props で validation を制御
+- `vilidate`props には関数が指定でき、引数には`value`が入る
+- `formik`で提供している`ErrorMessage`コンポーネントでエラーメッセージを表示
+
+```
+const initialValues = {
+  comments: '',
+};
+
+const validateComments = (value) => {
+  let error;
+  if (!value) {
+    error = 'Required';
+  }
+  return error;
+};
+```
+
+```
+<Field validate={validateComments} />
+<ErrorMessage name="comments" />
+```
