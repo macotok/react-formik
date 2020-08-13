@@ -26,8 +26,10 @@ const initialValues = {
   phNumbers: [''],
 };
 
-const onSubmit = (values) => {
+const onSubmit = (values, submitProps) => {
   console.log('form data', values);
+  console.log('submitProps', submitProps);
+  submitProps.setSubmitting(false);
 };
 
 const validationSchema = Yup.object({
@@ -50,6 +52,7 @@ function YoutubeForm() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      // validateOnMount
       // validateOnChange={false}
       // validateOnBlur={false}
     >
@@ -134,7 +137,6 @@ function YoutubeForm() {
               <FieldArray name="phNumbers">
                 {(fieldArrayProps) => {
                   const { push, remove, form } = fieldArrayProps;
-                  console.log(form.errors);
                   const {
                     values: { phNumbers },
                   } = form;
@@ -188,7 +190,12 @@ function YoutubeForm() {
               Visit all
             </button>
 
-            <button type="submit">Submit</button>
+            <button
+              type="submit"
+              disabled={!formik.isValid || formik.isSubmitting}
+            >
+              Submit
+            </button>
           </Form>
         );
       }}

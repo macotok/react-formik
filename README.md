@@ -1044,3 +1044,27 @@ const validateComments = (value) => {
   Visit all
 </button>
 ```
+
+### submit ボタンを disabeled で制御
+
+- `formik.isValid`で validation エラーの有無がわかる。`true`の場合はエラーなし
+- `formik.isValid`のみで disabled を制御すると page ロード時はエラーがないのでボタンが活性化される
+- `formik.dirty`で`initialValues`と値が同じかをチェック
+- required の項目が`initialValues`時に値が入ってるとき`formik.dirty`で値と同じじゃないと`false`になる。よって disabled は制御できない
+- `formik.isSubmitting`で submit ボタンが押されたかを判定(`true`の場合は押下)。この判定により API にデータを POST している非同期処理中は`false`に設定して、submit ボタンを非活性化にする
+- `onSubmit`関数の引数`submitProps`で`formik.isSubmitting`を制御できる
+
+```
+const onSubmit = (values, submitProps) => {
+  submitProps.setSubmitting(false);
+};
+```
+
+```
+<button
+  type="submit"
+  disabled={!formik.isValid || formik.isSubmitting}
+>
+```
+
+この記述でページ初期画面はボタンが活性化になっているが、押下するとエラーメッセージが表示され、onSubmit 関数が処理されない
