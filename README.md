@@ -928,3 +928,27 @@ const initialValues = {
   }}
 </FieldArray>
 ```
+
+### FastField コンポーネントでレンダリングを制御
+
+- `Field`コンポーネントを操作したとき、他の`Field`コンポーネントもレンダリングされる
+- `formil`で提供されている`FastField` コンポーネントを使用するとそのコンポーネントのみレンダリングされる
+- ただし、1 画面に 30 以上の`Field`コンポーネントがあり、それ以上のコンポーネントから`FastField`の使用でパフォーマンスに影響がでる
+
+```
+import { FastField } from 'formik';
+```
+
+```
+<FastField name="address">
+  {({ field, form, meta }) => {
+    console.log('Field render');
+    return (
+      <div>
+        <input type="text" {...field} />
+        {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+      </div>
+    );
+  }}
+</FastField>
+```

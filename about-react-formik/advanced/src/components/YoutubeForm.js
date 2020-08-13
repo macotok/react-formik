@@ -1,6 +1,13 @@
 import * as Yup from 'yup';
 
-import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik';
+import {
+  ErrorMessage,
+  FastField,
+  Field,
+  FieldArray,
+  Form,
+  Formik,
+} from 'formik';
 
 import React from 'react';
 import TextError from './TextError';
@@ -69,8 +76,9 @@ function YoutubeForm() {
 
         <div className="form-control">
           <label htmlFor="address">Address</label>
-          <Field name="address">
+          <FastField name="address">
             {({ field, form, meta }) => {
+              console.log('Field render');
               return (
                 <div>
                   <input type="text" {...field} />
@@ -78,7 +86,7 @@ function YoutubeForm() {
                 </div>
               );
             }}
-          </Field>
+          </FastField>
         </div>
 
         <div className="form-control">
