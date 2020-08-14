@@ -1355,3 +1355,30 @@ function YoutubeForm() {
 
 export default YoutubeForm;
 ```
+
+## 各処理をコンポーネントに分ける
+
+### FormContainer コンポーネント
+
+### FormControl コンポーネント
+
+### Input コンポーネント
+
+```
+import { ErrorMessage, Field } from 'formik';
+
+import React from 'react';
+
+function Input(props) {
+  const { label, name, formik, ...rest } = props;
+  return (
+    <div className="form-control">
+      <label htmlFor={name}>{label}</label>
+      <Field id={name} name={name} {...rest} />
+      <ErrorMessage name={name} />
+    </div>
+  );
+}
+
+export default Input;
+```
