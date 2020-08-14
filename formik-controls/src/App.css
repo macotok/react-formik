@@ -9,6 +9,12 @@ label {
   margin-bottom: 5px;
 }
 
+input + label {
+  display: inline-flex;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
 input[type='text'],
 input[type='email'],
 textarea,
