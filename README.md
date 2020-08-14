@@ -1068,3 +1068,43 @@ const onSubmit = (values, submitProps) => {
 ```
 
 この記述でページ初期画面はボタンが活性化になっているが、押下するとエラーメッセージが表示され、onSubmit 関数が処理されない
+
+### load data で initialValues の値を変更する
+
+- mock として`initialValues`と同じ schema の`savedValues`を用意
+- button を押下したときに useState で`savedValues`で設定した値に変更
+- `Formik`の props`initialValues`で`savedValues`または`initialValues`の値になるようにする
+- `Formik`の props で`enableReinitialize`で`initialValues`が変更許可に設定
+
+```
+const savedValues = {
+  name: 'Vishwas',
+  email: 'v@example.com',
+  channel: 'codevolution',
+  comments: 'Welcome to Formik',
+  address: '221B Baker Street',
+  social: {
+    facebook: '',
+    twitter: '',
+  },
+  phoneNumbers: ['', ''],
+  phNumbers: [''],
+};
+```
+
+```
+const [formValues, setFormValues] = useState(null);
+```
+
+```
+<button type="button" onClick={() => setFormValues(savedValues)}>
+  Load saved data
+</button>
+```
+
+```
+<Formik
+  initialValues={formValues || initialValues}
+  enableReinitialize
+>
+```
