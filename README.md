@@ -1368,6 +1368,7 @@ export default YoutubeForm;
 import { ErrorMessage, Field } from 'formik';
 
 import React from 'react';
+import TextError from './TextError';
 
 function Input(props) {
   const { label, name, formik, ...rest } = props;
@@ -1375,10 +1376,32 @@ function Input(props) {
     <div className="form-control">
       <label htmlFor={name}>{label}</label>
       <Field id={name} name={name} {...rest} />
-      <ErrorMessage name={name} />
+      <ErrorMessage name={name} component={TextError} />
     </div>
   );
 }
 
 export default Input;
+```
+
+### Textarea コンポーネント
+
+```
+import { ErrorMessage, Field } from 'formik';
+
+import React from 'react';
+import TextError from './TextError';
+
+function Textarea(props) {
+  const { label, name, formik, ...rest } = props;
+  return (
+    <div className="form-control">
+      <label htmlFor={name}>{label}</label>
+      <Field as="textarea" id={name} name={name} {...rest} />
+      <ErrorMessage name={name} component={TextError} />
+    </div>
+  );
+}
+
+export default Textarea;
 ```

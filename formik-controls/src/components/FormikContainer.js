@@ -8,10 +8,12 @@ import React from 'react';
 function FormikContainer() {
   const initialValues = {
     email: '',
+    description: '',
   };
 
   const validationSchema = Yup.object({
     email: Yup.string().required('Email is Required'),
+    description: Yup.string().required('Description is Required'),
   });
 
   const onSubmit = (values) => {
@@ -31,6 +33,11 @@ function FormikContainer() {
             name="email"
             label="Email"
             type="email"
+          />
+          <FormControl
+            control="textarea"
+            name="description"
+            label="Description"
           />
           <button type="submit">Submit</button>
         </Form>
