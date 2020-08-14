@@ -1386,6 +1386,8 @@ export default Input;
 
 ### Textarea コンポーネント
 
+- `Field`コンポーネントの`as`props で`textarea`を指定
+
 ```
 import { ErrorMessage, Field } from 'formik';
 
@@ -1404,4 +1406,37 @@ function Textarea(props) {
 }
 
 export default Textarea;
+```
+
+### Select コンポーネント
+
+- `Field`コンポーネントの`as`props で`select`を指定
+- `Field`コンポーネントの`children`に option を map で展開
+
+```
+import { ErrorMessage, Field } from 'formik';
+
+import React from 'react';
+import TextError from './TextError';
+
+function Select(props) {
+  const { label, name, formik, options, ...rest } = props;
+  return (
+    <div className="form-control">
+      <label htmlFor={name}>{label}</label>
+      <Field as="select" id={name} name={name} {...rest}>
+        {options.map((option) => {
+          return (
+            <option key={option.value} value={option.value}>
+              {option.key}
+            </option>
+          );
+        })}
+      </Field>
+      <ErrorMessage name={name} component={TextError} />
+    </div>
+  );
+}
+
+export default Select;
 ```
