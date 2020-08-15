@@ -1370,7 +1370,7 @@ import { ErrorMessage, Field } from 'formik';
 import React from 'react';
 
 function Input(props) {
-  const { label, name, formik, ...rest } = props;
+  const { label, name, ...rest } = props;
   return (
     <div className="form-control">
       <label htmlFor={name}>{label}</label>
@@ -1393,7 +1393,7 @@ import { ErrorMessage, Field } from 'formik';
 import React from 'react';
 
 function Textarea(props) {
-  const { label, name, formik, ...rest } = props;
+  const { label, name, ...rest } = props;
   return (
     <div className="form-control">
       <label htmlFor={name}>{label}</label>
@@ -1417,7 +1417,7 @@ import { ErrorMessage, Field } from 'formik';
 import React from 'react';
 
 function Select(props) {
-  const { label, name, formik, options, ...rest } = props;
+  const { label, name, options, ...rest } = props;
   return (
     <div className="form-control">
       <label htmlFor={name}>{label}</label>
@@ -1449,7 +1449,7 @@ import { ErrorMessage, Field } from 'formik';
 import React from 'react';
 
 function RadioButtons(props) {
-  const { label, name, formik, options, ...rest } = props;
+  const { label, name, options, ...rest } = props;
   return (
     <div className="form-control">
       <label htmlFor={name}>{label}</label>
@@ -1491,7 +1491,7 @@ import { ErrorMessage, Field } from 'formik';
 import React from 'react';
 
 function CheckboxGroup(props) {
-  const { label, name, formik, options, ...rest } = props;
+  const { label, name, options, ...rest } = props;
   return (
     <div className="form-control">
       <label htmlFor={name}>{label}</label>

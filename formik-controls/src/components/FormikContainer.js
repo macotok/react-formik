@@ -61,34 +61,29 @@ function FormikContainer() {
             name="email"
             label="Email"
             type="email"
-            formik={formik}
           />
           <FormikControl
             control="textarea"
             name="description"
             label="Description"
-            formik={formik}
           />
           <FormikControl
             control="select"
             label="Select a topic"
             name="selectOption"
             options={dropdownOptions}
-            formik={formik}
           />
           <FormikControl
             control="radio"
             label="Radio topic"
             name="radioOption"
             options={radioOptions}
-            formik={formik}
           />
           <FormikControl
             control="checkbox"
             label="Checkbox topics"
             name="checkboxOption"
             options={checkboxOptions}
-            formik={formik}
           />
           <FormikControl control="date" label="Pick a date" name="birthDate" />
           <button type="submit">Submit</button>
