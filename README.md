@@ -1368,7 +1368,6 @@ export default YoutubeForm;
 import { ErrorMessage, Field } from 'formik';
 
 import React from 'react';
-import TextError from './TextError';
 
 function Input(props) {
   const { label, name, formik, ...rest } = props;
@@ -1376,7 +1375,7 @@ function Input(props) {
     <div className="form-control">
       <label htmlFor={name}>{label}</label>
       <Field id={name} name={name} {...rest} />
-      <ErrorMessage name={name} component={TextError} />
+      <ErrorMessage name={name} />
     </div>
   );
 }
@@ -1392,7 +1391,6 @@ export default Input;
 import { ErrorMessage, Field } from 'formik';
 
 import React from 'react';
-import TextError from './TextError';
 
 function Textarea(props) {
   const { label, name, formik, ...rest } = props;
@@ -1400,7 +1398,7 @@ function Textarea(props) {
     <div className="form-control">
       <label htmlFor={name}>{label}</label>
       <Field as="textarea" id={name} name={name} {...rest} />
-      <ErrorMessage name={name} component={TextError} />
+      <ErrorMessage name={name} />
     </div>
   );
 }
@@ -1417,7 +1415,6 @@ export default Textarea;
 import { ErrorMessage, Field } from 'formik';
 
 import React from 'react';
-import TextError from './TextError';
 
 function Select(props) {
   const { label, name, formik, options, ...rest } = props;
@@ -1433,7 +1430,7 @@ function Select(props) {
           );
         })}
       </Field>
-      <ErrorMessage name={name} component={TextError} />
+      <ErrorMessage name={name} />
     </div>
   );
 }
@@ -1443,14 +1440,13 @@ export default Select;
 
 ### RadioButton コンポーネント
 
-- `Field`コンポーネントの children に関数を設定。その関数の引数`field`で選択しているラジオボタンを抽出
-- 各ラジオボタンの`id属性`と`value属性`はユニークな値。`name属性`は共通の値に設定
+- `Field`コンポーネントの children に関数を設定。その関数の引数`field`で選択している radioButton を抽出
+- 各 radioButton の`id属性`と`value属性`はユニークな値。`name属性`は共通の値に設定
 
 ```
 import { ErrorMessage, Field } from 'formik';
 
 import React from 'react';
-import TextError from './TextError';
 
 function RadioButtons(props) {
   const { label, name, formik, options, ...rest } = props;
@@ -1475,10 +1471,52 @@ function RadioButtons(props) {
           });
         }}
       </Field>
-      <ErrorMessage name={name} component={TextError} />
+      <ErrorMessage name={name} />
     </div>
   );
 }
 
 export default RadioButtons;
+```
+
+### Checkbox コンポーネント
+
+- `Field`コンポーネントの children に関数を設定。その関数の引数`field`で選択している checkbox を抽出
+- data は配列で管理  するので、`includes`メソッドで選択している`value`を抽出
+- 各 checkbox の`id属性`と`value属性`はユニークな値。`name属性`は共通の値に設定
+
+```
+import { ErrorMessage, Field } from 'formik';
+
+import React from 'react';
+
+function CheckboxGroup(props) {
+  const { label, name, formik, options, ...rest } = props;
+  return (
+    <div className="form-control">
+      <label htmlFor={name}>{label}</label>
+      <Field id={name} name={name} {...rest}>
+        {({ field }) => {
+          return options.map((option) => {
+            return (
+              <React.Fragment key={option.key}>
+                <input
+                  id={option.value}
+                  type="checkbox"
+                  {...field}
+                  value={option.value}
+                  checked={field.value.includes(option.value)}
+                />
+                <label htmlFor={option.value}>{option.key}</label>
+              </React.Fragment>
+            );
+          });
+        }}
+      </Field>
+      <ErrorMessage name={name} />
+    </div>
+  );
+}
+
+export default CheckboxGroup;
 ```
