@@ -1806,3 +1806,31 @@ function RegistrationForm() {
 
 export default RegistrationForm;
 ```
+
+## UI ライブラリ「chakra」を使用
+
+### set up
+
+- chakra を install
+- `ThemeProvider`コンポーネントを wrap させて、`theme`props に theme を設定
+
+```
+$ npm install @chakra-ui/core @emotion/core @emotion/styled emotion-theming
+```
+
+```
+import { ThemeProvider, theme } from '@chakra-ui/core';
+
+import React from 'react';
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <div className="App">
+      </div>
+    </ThemeProvider>
+  );
+}
+
+export default App;
+```
