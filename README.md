@@ -1360,7 +1360,147 @@ export default YoutubeForm;
 
 ### FormContainer コンポーネント
 
+- form の大元のコンポーネント
+- `select`、`radio`、`checkbox`の option を設定
+- `initialvalues`、`validationSchema`、`onSubmit`を設定
+- `formControl`の props に form に関する data を渡す
+
+```
+import * as Yup from 'yup';
+
+import { Form, Formik } from 'formik';
+
+import FormikControl from './FormikControl';
+import React from 'react';
+
+function FormikContainer() {
+  const dropdownOptions = [
+    { key: 'Select an option', value: '' },
+    { key: 'Option 1', value: 'option1' },
+    { key: 'Option 2', value: 'option2' },
+    { key: 'Option 3', value: 'option 3' },
+  ];
+
+  const radioOptions = [
+    { key: 'Option 1', value: 'rOption1' },
+    { key: 'Option 2', value: 'rOption2' },
+    { key: 'Option 3', value: 'rOption3' },
+  ];
+
+  const checkboxOptions = [
+    { key: 'Option 1', value: 'cOption1' },
+    { key: 'Option 2', value: 'cOption2' },
+    { key: 'Option 3', value: 'cOption3' },
+  ];
+
+  const initialValues = {
+    email: '',
+    description: '',
+    selectOption: '',
+    radioOption: '',
+    checkboxOption: [],
+    birthDate: null,
+  };
+
+  const validationSchema = Yup.object({
+    email: Yup.string().required('Email is Required'),
+    description: Yup.string().required('Description is Required'),
+    selectOption: Yup.string().required('Select is Required'),
+    radioOption: Yup.string().required('Radio is Required'),
+    checkboxOption: Yup.array().required('Checkbox id Required'),
+    birthDate: Yup.date().required('BirthDate is Required').nullable(),
+  });
+
+  const onSubmit = (values) => {
+    console.log('form data', values);
+    console.log('Saved data', JSON.parse(JSON.stringify(values)));
+  };
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={onSubmit}
+    >
+      {(formik) => (
+        <Form>
+          <FormikControl
+            control="input"
+            name="email"
+            label="Email"
+            type="email"
+          />
+          <FormikControl
+            control="textarea"
+            name="description"
+            label="Description"
+          />
+          <FormikControl
+            control="select"
+            label="Select a topic"
+            name="selectOption"
+            options={dropdownOptions}
+          />
+          <FormikControl
+            control="radio"
+            label="Radio topic"
+            name="radioOption"
+            options={radioOptions}
+          />
+          <FormikControl
+            control="checkbox"
+            label="Checkbox topics"
+            name="checkboxOption"
+            options={checkboxOptions}
+          />
+          <FormikControl control="date" label="Pick a date" name="birthDate" />
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    </Formik>
+  );
+}
+
+export default FormikContainer;
+```
+
 ### FormControl コンポーネント
+
+- このコンポーネントで作成した form の部品を読み込む
+- `control`は呼び出し元`containaer`で指定した部品名
+- `control`以外の props は form の部品に送る
+
+```
+import CheckboxGroup from './CheckboxGroup';
+import DatePicker from './DatePicker';
+import Input from './Input';
+import RadioButtons from './RadioButtons';
+import React from 'react';
+import Select from './Select';
+import Textarea from './Textarea';
+
+function FormikControl(props) {
+  const { control, ...rest } = props;
+  switch (control) {
+    case 'input':
+      return <Input {...rest} />;
+    case 'textarea':
+      return <Textarea {...rest} />;
+    case 'select':
+      return <Select {...rest} />;
+    case 'radio':
+      return <RadioButtons {...rest} />;
+    case 'checkbox':
+      return <CheckboxGroup {...rest} />;
+    case 'date':
+      return <DatePicker {...rest} />;
+    default:
+      return null;
+  }
+}
+
+export default FormikControl;
+```
 
 ### Input コンポーネント
 
