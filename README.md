@@ -1520,3 +1520,51 @@ function CheckboxGroup(props) {
 
 export default CheckboxGroup;
 ```
+
+### DatePicker コンポーネント
+
+- `react-datepicker`を install
+- datepicker の css は`react-datepicker/dist/react-datepicker.css`を使用
+- `Field`コンポーネントの children に関数を設定。その関数の引数`field`、`form`を設定
+- DatePicker の`selected属性`に`field.value`を設定
+- DatePicker の`onchange属性`に`form.setFieldValue({name}, {onchagenの引数value})`を設定
+
+```
+$ yarn add react-datepicker
+```
+
+```
+import 'react-datepicker/dist/react-datepicker.css';
+
+import { ErrorMessage, Field } from 'formik';
+
+import DateView from 'react-datepicker';
+import React from 'react';
+
+function DatePicker(props) {
+  const { label, name, ...rest } = props;
+  return (
+    <div className="form-control">
+      <label htmlFor={name}>{label}</label>
+      <Field name={name}>
+        {({ field, form }) => {
+          const { setFieldValue } = form;
+          const { value } = field;
+          return (
+            <DateView
+              id={name}
+              {...field}
+              {...rest}
+              selected={value}
+              onChange={(val) => setFieldValue(name, val)}
+            />
+          );
+        }}
+      </Field>
+      <ErrorMessage name={name} />
+    </div>
+  );
+}
+
+export default DatePicker;
+```
