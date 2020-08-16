@@ -1834,3 +1834,38 @@ function App() {
 
 export default App;
 ```
+
+### Input コンポーネント
+
+- `FormControl`、`FormErrorMessage`、`FormLabel`、`Input`は chakra-ui を使用
+- `FormControl`の props で`isInvalid`を設定
+- formik で使用するコンポーネントとほぼ同じ
+
+```
+import {
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+} from '@chakra-ui/core';
+
+import { Field } from 'formik';
+import React from 'react';
+
+function ChakraInput(props) {
+  const { label, name, ...rest } = props;
+  return (
+    <Field name={name}>
+      {({ field, form }) => (
+        <FormControl isInvalid={form.errors[name] && form.touched[name]}>
+          <FormLabel htmlFor={name}>{label}</FormLabel>
+          <Input id={name} {...rest} {...field} />
+          <FormErrorMessage>{form.errors[name]}</FormErrorMessage>
+        </FormControl>
+      )}
+    </Field>
+  );
+}
+
+export default ChakraInput;
+```
