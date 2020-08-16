@@ -86,7 +86,9 @@ function FormikContainer() {
             options={checkboxOptions}
           />
           <FormikControl control="date" label="Pick a date" name="birthDate" />
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={!formik.isValid}>
+            Submit
+          </button>
         </Form>
       )}
     </Formik>

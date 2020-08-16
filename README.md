@@ -1,8 +1,8 @@
 # react-formik
 
-YouTube チャンネル CodeEvolution「React Formik」を参考
+YouTube チャンネル [CodeEvolution](https://www.youtube.com/channel/UC80PWRj_ZU8Zu0HSMNVwKWw)の「React Formik」を参考
 
-## SetUp
+## set up
 
 ```
 $ npm i formik
@@ -42,7 +42,7 @@ form の HTML
 - useFormik 関数の object に`initialValues`を設定して、各 form 要素の初期値を管理
 - initialValues の key 名は form 要素の`name`の値
 - onChage 属性に useFormik の API`handleChange`を指定。`onChange={formik.handleChange}`で`formik.values`で設定した name を key としたデータが入る
-- value 属性にに useFormik の API`values`を指定。`value={formik.values.{name名}}`で`formik.values`で設定した name のデータが表示される
+- value 属性に useFormik の API`values`を指定。`value={formik.values.{name名}}`で`formik.values`で設定した name のデータが表示される
 
 ```
 import { useFormik } from 'formik';
@@ -205,7 +205,7 @@ export default YoutubeForm;
 
 - useFormik 関数に validate メソッドを指定
 - validate メソッドには`errors`を戻り値とする
-- validate メソッドの引数`values`には各要素の name の値を key とした data が入る
+- validate メソッドの引数`values`には各要素の name の値を key とした value が入る
 - `formik.errors`で各要素のエラーメッセージを取得
 
 ```
@@ -338,7 +338,7 @@ export default YoutubeForm;
 
 ### validate 選択項目のみエラーメッセージを表示
 
-- ユーザーが touch した項目のみ validate 検知
+- ユーザーが touch した項目のみ validate を検知
 - handleBlur したときにエラーメッセージ表示
 
 ```
@@ -462,7 +462,7 @@ export default YoutubeForm;
 - useFormik 関数の object に指定
 
 ```
-$ yarn add yup
+$ npm i yup
 ```
 
 ```
@@ -671,7 +671,7 @@ export default YoutubeForm;
 
 ### Formik コンポーネントで全体をラップ
 
-- `formik`で提供している Formik コンポーネントで form タグを wrap
+- formik が提供している `Formik` コンポーネントで form タグを wrap
 - `Formik`コンポーネントの props`initialValues`、`validationSchema`、`onSubmit`にそれぞれの変数を指定
 
 ```
@@ -688,7 +688,7 @@ import { Formik } from 'formik';
 
 ### form タグを Form コンポーネントに変更
 
-- `formik`で提供している Form コンポーネントを form タグと変更
+- formik が提供している `Form` コンポーネントを form タグと変更
 - form タグで指定した onSubmit 属性を削除
 
 ```
@@ -703,7 +703,7 @@ import { Form } from 'formik';
 
 ### input タグを Field コンポーネントに変更
 
-- `formik`で提供している Field コンポーネントを input タグと変更
+- formik が提供している `Field` コンポーネントを input タグと変更
 - `{...formik.getFieldProps()}`を削除
 
 ```
@@ -718,7 +718,7 @@ import { Field } from 'formik';
 
 ### ErrorMessage コンポーネントでエラーメッセージ表示
 
-- `formik`で提供している ErrorMessage コンポーネントでエラーメッセージ表示
+- formik が提供している `ErrorMessage` コンポーネントでエラーメッセージ表示
 
 ```
 import { ErrorMessage } from 'formik';
@@ -795,13 +795,11 @@ export default YoutubeForm;
 ### Field コンポーネントについて
 
 - `placeholder`props で placeholder を入力できる
-- `as`props で textarea タグを設定できる
-- `field`コンポーネントの children に関数が書ける。その関数の引数の object に`field`、`form`、`meta`が設定される
+- `as`props で textarea、select タグを設定できる
+- `field`コンポーネントの children に関数が書ける。その関数の引数に`field`、`form`、`meta`が設定される
 
 ```
-<Field
-  placeholder="YouTube channel name"
-/>
+<Field　placeholder="YouTube channel name" />
 ```
 
 ```
@@ -824,7 +822,7 @@ export default YoutubeForm;
 ### ErrorMessage コンポーネントについて
 
 - ErrorMessage コンポーネントの`component`props に作成した component を指定できる
-- そのとき  作成した component の`props.children`で error message が表示される
+- そのとき作成した component の`props.children`に error message が表示される
 - ErrorMessage コンポーネントの children に関数を設定できる
 - その関数の引数には error message が設定される
 
@@ -837,12 +835,12 @@ function TextError(props) {
 ```
 
 ```
-ErrorMessage name="email">
-  {(error) => <div className="error">{error}</div>}
+<ErrorMessage name="email">
+  {(msg) => <div className="error">{msg}</div>}
 </ErrorMessage>
 ```
 
-### data に nest された object を 指定
+### value に nest された object を 指定
 
 - `initialValues`で nest された object を指定
 - `Field`コンポーネントの name 属性で object の key を指定
@@ -860,7 +858,7 @@ const initialValues = {
 <Field type="text" id="twitter" name="social.twitter" />
 ```
 
-### data に配列を指定
+### value に配列を指定
 
 - `initialValues`で value に配列を指定
 - `Field`コンポーネントの name 属性で 配列の key と配列番号 を指定
@@ -879,17 +877,17 @@ const initialValues = {
 
 ### Field Array コンポーネントで動的に input タグを増減させる
 
-- `formik`で提供している`FieldArray`コンポーネントを使用
-- `initialValues`に配列を value とした key を設定
+- formik が提供している`FieldArray`コンポーネントを使用
+- `initialValues`で配列を value とした key を設定
 - `FieldArray`コンポーネントの name 属性に`initialValues`で設定した key を指定
-- `FieldArray`コンポーネントの children に関数を設定
-- 関数の引数には`push`、`remove`、`form`などの object が管理されている
-- `form`object には value の key があり、`initialValues`で設定した key が管理されている
-- その key を map させて、`Field`コンポーネントと button を配置させる
-- `Field`コンポーネントの`name属性`は`initialValues`で設定した key と map の引数(index)を結合させる
-- map の引数(index)を使用して`removee(index)`で input タグの削除  行う
-- 先頭の input タグは削除しないように設定する
-- button タグの`onClick属性`で`push('')`を設定で input タグを増やす
+- `FieldArray`コンポーネントの `children` に関数を設定
+- 関数の引数には`push`、`remove`、`form`などの API が設定されている
+  - `form` には value の key があり、`initialValues`で設定した key が管理されている
+  - その key を map させて、`Field`コンポーネントと `button` を配置させる
+  - `Field`コンポーネントの name 属性は`initialValues`で設定した key と map の引数(index)を結合させる
+  - map の引数(index)を使用して`remove(index)`で input タグの削除を行う
+  - 先頭の input タグは削除しないように設定する
+  - button タグの onClick 属性に`push('')`を設定で input タグを増やす
 
 ```
 import { FieldArray } from 'formik';
@@ -932,8 +930,8 @@ const initialValues = {
 ### FastField コンポーネントでレンダリングを制御
 
 - `Field`コンポーネントを操作したとき、他の`Field`コンポーネントもレンダリングされる
-- `formil`で提供されている`FastField` コンポーネントを使用するとそのコンポーネントのみレンダリングされる
-- ただし、1 画面に 30 以上の`Field`コンポーネントがあり、それ以上のコンポーネントから`FastField`の使用でパフォーマンスに影響がでる
+- formik で提供されている`FastField` コンポーネントを使用すると、そのコンポーネントのみレンダリングされる
+- 1 画面に 30 以上の`Field`コンポーネントがあある場合に`FastField`の使用でパフォーマンスが良くなる
 
 ```
 import { FastField } from 'formik';
@@ -956,7 +954,7 @@ import { FastField } from 'formik';
 ### validation が走るタイミングを制御
 
 - デフォルトでは form の各項目を`onChange`、`onBlur`したタイミングで validation が走る
-- `Formik`コンポーネントの props で`validateOnChange`、`validateOnBlur`を`false`にすると validation が走らないようにする
+- `Formik`コンポーネントの props で`validateOnChange`、`validateOnBlur`を`false`にすると validation が走らないようになる
 
 ```
 <Formik
@@ -969,7 +967,7 @@ import { FastField } from 'formik';
 
 - `validationSchema`で validation を制御するのではなく、`Field`コンポーネントの`validate` props で validation を制御
 - `vilidate`props には関数が指定でき、引数には`value`が入る
-- `formik`で提供している`ErrorMessage`コンポーネントでエラーメッセージを表示
+- formik が提供している`ErrorMessage`コンポーネントでエラーメッセージを表示
 
 ```
 const initialValues = {
@@ -1045,14 +1043,14 @@ const validateComments = (value) => {
 </button>
 ```
 
-### submit ボタンを disabeled で制御
+### submit ボタンを disabled で制御
 
-- `formik.isValid`で validation エラーの有無がわかる。`true`の場合はエラーなし
-- `formik.isValid`のみで disabled を制御すると page ロード時はエラーがないのでボタンが活性化される
+- `formik.isValid`で validation エラーの有無を boolean で取得。`true`の場合はエラーなし
+  - `formik.isValid`のみで disabled を制御すると page ロード時はエラーがないのでボタンが活性化される
 - `formik.dirty`で`initialValues`と値が同じかをチェック
-- required の項目が`initialValues`時に値が入ってるとき`formik.dirty`で値と同じじゃないと`false`になる。よって disabled は制御できない
+  - required の値が`initialValues`時に入ってる場合、`formik.dirty`で値と同じではないと`false`になる。よって disabled は制御できない
 - `formik.isSubmitting`で submit ボタンが押されたかを判定(`true`の場合は押下)。この判定により API にデータを POST している非同期処理中は`false`に設定して、submit ボタンを非活性化にする
-- `onSubmit`関数の引数`submitProps`で`formik.isSubmitting`を制御できる
+  - `onSubmit`関数の引数`submitProps`のメソッド`setSubmitting`で`formik.isSubmitting`を制御できる
 
 ```
 const onSubmit = (values, submitProps) => {
@@ -1074,7 +1072,7 @@ const onSubmit = (values, submitProps) => {
 - mock として`initialValues`と同じ schema の`savedValues`を用意
 - button を押下したときに useState で`savedValues`で設定した値に変更
 - `Formik`の props`initialValues`で`savedValues`または`initialValues`の値になるようにする
-- `Formik`の props で`enableReinitialize`で`initialValues`が変更許可に設定
+- `Formik`の props で`enableReinitialize`で`initialValues`が変更可能に
 
 ```
 const savedValues = {
@@ -1363,7 +1361,7 @@ export default YoutubeForm;
 - form の大元のコンポーネント
 - `select`、`radio`、`checkbox`の option を設定
 - `initialvalues`、`validationSchema`、`onSubmit`を設定
-- `formControl`の props に form に関する data を渡す
+- `formControl`の props に 各要素の data を渡す
 
 ```
 import * as Yup from 'yup';
@@ -1454,7 +1452,9 @@ function FormikContainer() {
             options={checkboxOptions}
           />
           <FormikControl control="date" label="Pick a date" name="birthDate" />
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={!formik.isValid}>
+            Submit
+          </button>
         </Form>
       )}
     </Formik>
@@ -1466,9 +1466,9 @@ export default FormikContainer;
 
 ### FormControl コンポーネント
 
-- このコンポーネントで作成した form の部品を読み込む
+- form の各部品を読み込む
 - `control`は呼び出し元`containaer`で指定した部品名
-- `control`以外の props は form の部品に送る
+- `control`以外の props は各部品に送る
 
 ```
 import CheckboxGroup from './CheckboxGroup';
@@ -1622,7 +1622,7 @@ export default RadioButtons;
 ### Checkbox コンポーネント
 
 - `Field`コンポーネントの children に関数を設定。その関数の引数`field`で選択している checkbox を抽出
-- data は配列で管理  するので、`includes`メソッドで選択している`value`を抽出
+- value は配列で管理するので、`includes`メソッドで選択している`value`を抽出
 - 各 checkbox の`id属性`と`value属性`はユニークな値。`name属性`は共通の値に設定
 
 ```
@@ -1666,11 +1666,11 @@ export default CheckboxGroup;
 - `react-datepicker`を install
 - datepicker の css は`react-datepicker/dist/react-datepicker.css`を使用
 - `Field`コンポーネントの children に関数を設定。その関数の引数`field`、`form`を設定
-- DatePicker の`selected属性`に`field.value`を設定
-- DatePicker の`onchange属性`に`form.setFieldValue({name}, {onchagenの引数value})`を設定
+- DatePicker の selected 属性に`field.value`を設定
+- DatePicker の onchange 属性に`form.setFieldValue({name}, {onchagen関数の引数value})`を設定
 
 ```
-$ yarn add react-datepicker
+$ npm i react-datepicker
 ```
 
 ```
@@ -1713,8 +1713,8 @@ export default DatePicker;
 
 ### アカウント登録フォーム
 
-- パスワード確認用のフォームの validation チェックで`oneOf`メソッドを使用
-- お問い合わせ方法が電話の場合、`phone`のフォームの validation チェックで`when`メソッドを使用
+- パスワード確認用の validation チェックで`oneOf`メソッドを使用
+- お問い合わせ方法が電話の場合、`phone`の validation チェックで`when`メソッドを使用
 
 ```
 import * as Yup from 'yup';
@@ -1815,7 +1815,7 @@ export default RegistrationForm;
 - `ThemeProvider`コンポーネントを wrap させて、`theme`props に theme を設定
 
 ```
-$ npm install @chakra-ui/core @emotion/core @emotion/styled emotion-theming
+$ npm i @chakra-ui/core @emotion/core @emotion/styled emotion-theming
 ```
 
 ```
@@ -1827,6 +1827,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
+      .
+      .
+      .
       </div>
     </ThemeProvider>
   );
@@ -1837,9 +1840,8 @@ export default App;
 
 ### Input コンポーネント
 
-- `FormControl`、`FormErrorMessage`、`FormLabel`、`Input`は chakra-ui を使用
+- `FormControl`、`FormErrorMessage`、`FormLabel`、`Input`は chakra-ui が提供しているコンポーネントを使用
 - `FormControl`の props で`isInvalid`を設定
-- formik で使用するコンポーネントとほぼ同じ
 
 ```
 import {
