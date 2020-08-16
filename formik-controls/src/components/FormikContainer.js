@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 
 import FormikControl from './FormikControl';
 import React from 'react';
+import SubmitButton from './SubmitButton';
 
 function FormikContainer() {
   const dropdownOptions = [
@@ -86,9 +87,7 @@ function FormikContainer() {
             options={checkboxOptions}
           />
           <FormikControl control="date" label="Pick a date" name="birthDate" />
-          <button type="submit" disabled={!formik.isValid}>
-            Submit
-          </button>
+          <SubmitButton formik={formik} />
         </Form>
       )}
     </Formik>

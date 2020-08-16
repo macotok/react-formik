@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 
 import FormikControl from './FormikControl';
 import React from 'react';
+import SubmitButton from './SubmitButton';
 
 function EnrollmentForm() {
   const dropdownOptions = [
@@ -71,9 +72,7 @@ function EnrollmentForm() {
               label="Course date"
               name="courseDate"
             />
-            <button type="submit" disabled={!formik.isValid}>
-              Submit
-            </button>
+            <SubmitButton formik={formik} />
           </Form>
         );
       }}

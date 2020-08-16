@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 
 import FormikControl from './FormikControl';
 import React from 'react';
+import SubmitButton from './SubmitButton';
 
 function RegistrationForm() {
   const options = [
@@ -75,9 +76,7 @@ function RegistrationForm() {
               label="Phone number"
               name="phone"
             />
-            <button type="submit" disabled={!formik.isValid}>
-              Submit
-            </button>
+            <SubmitButton formik={formik} />
           </Form>
         );
       }}

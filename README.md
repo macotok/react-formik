@@ -1370,6 +1370,7 @@ import { Form, Formik } from 'formik';
 
 import FormikControl from './FormikControl';
 import React from 'react';
+import SubmitButton from './SubmitButton';
 
 function FormikContainer() {
   const dropdownOptions = [
@@ -1452,9 +1453,7 @@ function FormikContainer() {
             options={checkboxOptions}
           />
           <FormikControl control="date" label="Pick a date" name="birthDate" />
-          <button type="submit" disabled={!formik.isValid}>
-            Submit
-          </button>
+          <SubmitButton formik={formik} />
         </Form>
       )}
     </Formik>
@@ -1471,6 +1470,7 @@ export default FormikContainer;
 - `control`以外の props は各部品に送る
 
 ```
+import ChakraInput from './ChakraInput';
 import CheckboxGroup from './CheckboxGroup';
 import DatePicker from './DatePicker';
 import Input from './Input';
@@ -1494,6 +1494,8 @@ function FormikControl(props) {
       return <CheckboxGroup {...rest} />;
     case 'date':
       return <DatePicker {...rest} />;
+    case 'chakraInput':
+      return <ChakraInput {...rest} />;
     default:
       return null;
   }
@@ -1709,6 +1711,25 @@ function DatePicker(props) {
 export default DatePicker;
 ```
 
+### Submit button コンポーネント
+
+- disabled を制御するために`formik`を props として受け取る
+
+```
+import React from 'react';
+
+function SubmitButton(props) {
+  const { formik } = props;
+  return (
+    <button type="submit" disabled={!formik.isValid}>
+      Submit
+    </button>
+  );
+}
+
+export default SubmitButton;
+```
+
 ## サンプル画面
 
 ### アカウント登録フォーム
@@ -1717,94 +1738,95 @@ export default DatePicker;
 - お問い合わせ方法が電話の場合、`phone`の validation チェックで`when`メソッドを使用
 
 ```
-import * as Yup from 'yup';
+
+import \* as Yup from 'yup';
 
 import { Form, Formik } from 'formik';
 
 import FormikControl from './FormikControl';
 import React from 'react';
+import SubmitButton from './SubmitButton';
 
 function RegistrationForm() {
-  const options = [
-    { key: 'Email', value: 'emailmoc' },
-    { key: 'Telephone', value: 'telephonemoc' },
-  ];
+const options = [
+{ key: 'Email', value: 'emailmoc' },
+{ key: 'Telephone', value: 'telephonemoc' },
+];
 
-  const initialValues = {
-    email: '',
-    password: '',
-    confirmPassword: '',
-    modeOfContact: '',
-    phone: '',
-  };
+const initialValues = {
+email: '',
+password: '',
+confirmPassword: '',
+modeOfContact: '',
+phone: '',
+};
 
-  const validationSchema = Yup.object({
-    email: Yup.string().email('Invalid email format').required('Required'),
-    password: Yup.string().required('Required'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), ''], 'Passwords must match')
-      .required('Required'),
-    modeOfContact: Yup.string().required('Required'),
-    phone: Yup.string().when('modeOfContact', {
-      is: 'telephonemoc',
-      then: Yup.string().required('Required'),
-    }),
-  });
+const validationSchema = Yup.object({
+email: Yup.string().email('Invalid email format').required('Required'),
+password: Yup.string().required('Required'),
+confirmPassword: Yup.string()
+.oneOf([Yup.ref('password'), ''], 'Passwords must match')
+.required('Required'),
+modeOfContact: Yup.string().required('Required'),
+phone: Yup.string().when('modeOfContact', {
+is: 'telephonemoc',
+then: Yup.string().required('Required'),
+}),
+});
 
-  const onSubmit = (values) => {
-    console.log('Form data', values);
-  };
+const onSubmit = (values) => {
+console.log('Form data', values);
+};
 
-  return (
-    <Formik
+return (
+<Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {(formik) => {
-        return (
-          <Form>
-            <FormikControl
+{(formik) => {
+return (
+<Form>
+<FormikControl
               control="input"
               type="email"
               label="Email"
               name="email"
             />
-            <FormikControl
+<FormikControl
               control="input"
               type="password"
               label="Password"
               name="password"
             />
-            <FormikControl
+<FormikControl
               control="input"
               type="password"
               label="Confirm Password"
               name="confirmPassword"
             />
-            <FormikControl
+<FormikControl
               control="radio"
               label="Mode of contact"
               name="modeOfContact"
               options={options}
             />
-            <FormikControl
+<FormikControl
               control="input"
               type="text"
               label="Phone number"
               name="phone"
             />
-            <button type="submit" disabled={!formik.isValid}>
-              Submit
-            </button>
-          </Form>
-        );
-      }}
-    </Formik>
-  );
+<SubmitButton formik={formik} />
+</Form>
+);
+}}
+</Formik>
+);
 }
 
 export default RegistrationForm;
+
 ```
 
 ## UI ライブラリ「chakra」を使用
@@ -1815,27 +1837,31 @@ export default RegistrationForm;
 - `ThemeProvider`コンポーネントを wrap させて、`theme`props に theme を設定
 
 ```
-$ npm i @chakra-ui/core @emotion/core @emotion/styled emotion-theming
+
+\$ npm i @chakra-ui/core @emotion/core @emotion/styled emotion-theming
+
 ```
 
 ```
+
 import { ThemeProvider, theme } from '@chakra-ui/core';
 
 import React from 'react';
 
 function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <div className="App">
-      .
-      .
-      .
-      </div>
-    </ThemeProvider>
-  );
+return (
+<ThemeProvider theme={theme}>
+<div className="App">
+.
+.
+.
+</div>
+</ThemeProvider>
+);
 }
 
 export default App;
+
 ```
 
 ### Input コンポーネント
@@ -1844,30 +1870,36 @@ export default App;
 - `FormControl`の props で`isInvalid`を設定
 
 ```
+
 import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
+FormControl,
+FormErrorMessage,
+FormLabel,
+Input,
 } from '@chakra-ui/core';
 
 import { Field } from 'formik';
 import React from 'react';
 
 function ChakraInput(props) {
-  const { label, name, ...rest } = props;
-  return (
-    <Field name={name}>
-      {({ field, form }) => (
-        <FormControl isInvalid={form.errors[name] && form.touched[name]}>
-          <FormLabel htmlFor={name}>{label}</FormLabel>
-          <Input id={name} {...rest} {...field} />
-          <FormErrorMessage>{form.errors[name]}</FormErrorMessage>
-        </FormControl>
-      )}
-    </Field>
-  );
+const { label, name, ...rest } = props;
+return (
+<Field name={name}>
+{({ field, form }) => (
+<FormControl isInvalid={form.errors[name] && form.touched[name]}>
+<FormLabel htmlFor={name}>{label}</FormLabel>
+<Input id={name} {...rest} {...field} />
+<FormErrorMessage>{form.errors[name]}</FormErrorMessage>
+</FormControl>
+)}
+</Field>
+);
 }
 
 export default ChakraInput;
+
+```
+
+```
+
 ```
