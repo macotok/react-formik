@@ -32,6 +32,7 @@ function FormikContainer() {
     selectOption: '',
     radioOption: '',
     checkboxOption: [],
+    fieldArrayInput: [''],
     birthDate: null,
   };
 
@@ -41,6 +42,7 @@ function FormikContainer() {
     selectOption: Yup.string().required('Select is Required'),
     radioOption: Yup.string().required('Radio is Required'),
     checkboxOption: Yup.array().required('Checkbox id Required'),
+    fieldArrayInput: Yup.array().required('FieldArrayInput is Required'),
     birthDate: Yup.date().required('BirthDate is Required').nullable(),
   });
 
@@ -85,6 +87,11 @@ function FormikContainer() {
             label="Checkbox topics"
             name="checkboxOption"
             options={checkboxOptions}
+          />
+          <FormikControl
+            control="fieldArrayInput"
+            label="multi topic"
+            name="fieldArrayInput"
           />
           <FormikControl control="date" label="Pick a date" name="birthDate" />
           <SubmitButton formik={formik} />

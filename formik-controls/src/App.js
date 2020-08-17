@@ -2,14 +2,14 @@ import './App.css';
 
 import { ThemeProvider, theme } from '@chakra-ui/core';
 
-import LoginForm from './components/LoginForm';
+import FormikContainer from './components/FormikContainer';
 import React from 'react';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <LoginForm />
+        <FormikContainer />
       </div>
     </ThemeProvider>
   );
