@@ -92,6 +92,11 @@ function FormikContainer() {
             label="multi topic"
             name="fieldArrayInput"
           />
+          <FormikControl
+            control="fileInput"
+            label="file upload"
+            name="fileInput"
+          />
           <FormikControl control="date" label="Pick a date" name="birthDate" />
           <SubmitButton formik={formik} />
         </Form>
