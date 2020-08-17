@@ -1847,6 +1847,7 @@ return (
     >
 {(formik) => {
 return (
+
 <Form>
 <FormikControl
               control="input"
@@ -1912,6 +1913,7 @@ import React from 'react';
 function App() {
 return (
 <ThemeProvider theme={theme}>
+
 <div className="App">
 .
 .
@@ -1958,6 +1960,10 @@ return (
 }
 
 export default ChakraInput;
+
+```
+
+```
 
 ```
 

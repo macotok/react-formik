@@ -4,11 +4,11 @@ import React from 'react';
 import TextError from './TextError';
 
 function FileInput(props) {
-  const { label, name } = props;
+  const { label, name, ...rest } = props;
   return (
     <div className="form-control">
       <label htmlFor={name}>{name}</label>
-      <Field name={name}>
+      <Field name={name} {...rest}>
         {({ form }) => {
           const { setFieldValue } = form;
           return (

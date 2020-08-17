@@ -1,50 +1,17 @@
-import * as Yup from 'yup';
-
 import { Form, Formik } from 'formik';
+import {
+  checkboxOptions,
+  dropdownOptions,
+  radioOptions,
+} from '../constants/formOptions';
 
 import FormikControl from './FormikControl';
 import React from 'react';
 import SubmitButton from './SubmitButton';
+import { initialValues } from '../validation/initialValues';
+import { validationSchema } from '../validation/validationSchema';
 
 function FormikContainer() {
-  const dropdownOptions = [
-    { key: 'Select an option', value: '' },
-    { key: 'Option 1', value: 'option1' },
-    { key: 'Option 2', value: 'option2' },
-    { key: 'Option 3', value: 'option 3' },
-  ];
-
-  const radioOptions = [
-    { key: 'Option 1', value: 'rOption1' },
-    { key: 'Option 2', value: 'rOption2' },
-    { key: 'Option 3', value: 'rOption3' },
-  ];
-
-  const checkboxOptions = [
-    { key: 'Option 1', value: 'cOption1' },
-    { key: 'Option 2', value: 'cOption2' },
-    { key: 'Option 3', value: 'cOption3' },
-  ];
-
-  const initialValues = {
-    email: '',
-    description: '',
-    selectOption: '',
-    radioOption: '',
-    checkboxOption: [],
-    fieldArrayInput: [''],
-    birthDate: null,
-  };
-
-  const validationSchema = Yup.object({
-    email: Yup.string().required('Email is Required'),
-    description: Yup.string().required('Description is Required'),
-    selectOption: Yup.string().required('Select is Required'),
-    radioOption: Yup.string().required('Radio is Required'),
-    checkboxOption: Yup.array().required('Checkbox id Required'),
-    birthDate: Yup.date().required('BirthDate is Required').nullable(),
-  });
-
   const onSubmit = (values) => {
     console.log('form data', values);
     console.log('Saved data', JSON.parse(JSON.stringify(values)));

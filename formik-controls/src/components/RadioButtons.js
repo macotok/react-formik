@@ -10,20 +10,18 @@ function RadioButtons(props) {
       <label htmlFor={name}>{label}</label>
       <Field id={name} name={name} {...rest}>
         {({ field }) => {
-          return options.map((option) => {
-            return (
-              <React.Fragment key={option.key}>
-                <input
-                  id={option.value}
-                  type="radio"
-                  {...field}
-                  value={option.value}
-                  checked={field.value === option.value}
-                />
-                <label htmlFor={option.value}>{option.key}</label>
-              </React.Fragment>
-            );
-          });
+          return options.map((option) => (
+            <React.Fragment key={option.key}>
+              <input
+                id={option.value}
+                type="radio"
+                {...field}
+                value={option.value}
+                checked={field.value === option.value}
+              />
+              <label htmlFor={option.value}>{option.key}</label>
+            </React.Fragment>
+          ));
         }}
       </Field>
       <ErrorMessage name={name} component={TextError} />
