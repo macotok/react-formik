@@ -42,7 +42,6 @@ function FormikContainer() {
     selectOption: Yup.string().required('Select is Required'),
     radioOption: Yup.string().required('Radio is Required'),
     checkboxOption: Yup.array().required('Checkbox id Required'),
-    fieldArrayInput: Yup.array().required('FieldArrayInput is Required'),
     birthDate: Yup.date().required('BirthDate is Required').nullable(),
   });
 

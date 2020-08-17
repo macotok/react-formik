@@ -5,6 +5,15 @@ import TextError from './TextError';
 
 function FieldArrayInput(props) {
   const { label, name } = props;
+
+  const validateArrayInput = (value) => {
+    let error;
+    if (!value) {
+      error = 'FieldArrayInput is Required';
+    }
+    return error;
+  };
+
   return (
     <div className="form-control">
       <label htmlFor={name}>{label}</label>
@@ -16,11 +25,19 @@ function FieldArrayInput(props) {
             <div>
               {values[name].map((value, index) => (
                 <div key={index}>
-                  <Field name={`${name}[${index}]`} />
-                  {index > 0 && (
-                    <button type="button" onClick={() => remove(index)}>
-                      -
-                    </button>
+                  {/* 1つ目のInputは入力必須にする　*/}
+                  {index === 0 ? (
+                    <Field
+                      name={`${name}[${index}]`}
+                      validate={validateArrayInput}
+                    />
+                  ) : (
+                    <>
+                      <Field name={`${name}[${index}]`} />
+                      <button type="button" onClick={() => remove(index)}>
+                        -
+                      </button>
+                    </>
                   )}
                 </div>
               ))}
