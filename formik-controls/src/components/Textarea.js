@@ -1,17 +1,10 @@
-import { ErrorMessage, Field } from 'formik';
-
+import { Field } from 'formik';
 import React from 'react';
-import TextError from './TextError';
+import WithFormParts from './hoc/WithFormParts';
 
 function Textarea(props) {
-  const { label, name, ...rest } = props;
-  return (
-    <div className="form-control">
-      <label htmlFor={name}>{label}</label>
-      <Field as="textarea" id={name} name={name} {...rest} />
-      <ErrorMessage name={name} component={TextError} />
-    </div>
-  );
+  const { name, ...rest } = props;
+  return <Field as="textarea" id={name} name={name} {...rest} />;
 }
 
-export default Textarea;
+export default WithFormParts(Textarea);

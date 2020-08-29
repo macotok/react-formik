@@ -1,31 +1,26 @@
-import { ErrorMessage, Field } from 'formik';
-
+import { Field } from 'formik';
 import React from 'react';
-import TextError from './TextError';
+import WithFormParts from './hoc/WithFormParts';
 
 function FileInput(props) {
-  const { label, name, ...rest } = props;
+  const { name, ...rest } = props;
   return (
-    <div className="form-control">
-      <label htmlFor={name}>{name}</label>
-      <Field name={name} {...rest}>
-        {({ form }) => {
-          const { setFieldValue } = form;
-          return (
-            <input
-              id={name}
-              name={name}
-              type="file"
-              onChange={(event) => {
-                setFieldValue(name, event.currentTarget.files[0]);
-              }}
-            />
-          );
-        }}
-      </Field>
-      <ErrorMessage name={name} component={TextError} />
-    </div>
+    <Field name={name} {...rest}>
+      {({ form }) => {
+        const { setFieldValue } = form;
+        return (
+          <input
+            id={name}
+            name={name}
+            type="file"
+            onChange={(event) => {
+              setFieldValue(name, event.currentTarget.files[0]);
+            }}
+          />
+        );
+      }}
+    </Field>
   );
 }
 
-export default FileInput;
+export default WithFormParts(FileInput);
